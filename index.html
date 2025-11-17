@@ -3,50 +3,107 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Free IMAT Practice Questions 2025-2026</title>
-  <meta name="description" content="100% free IMAT past paper questions and explanations - Biology, Chemistry, Physics, Math, Logical Reasoning"/>
+  <title>Free IMAT 2025-2026 Practice | 780+ Questions + Quizzes + Study Plan</title>
+  <meta name="description" content="Free IMAT practice: 780+ questions, timed quizzes, 12-week study plan, progress tracker. No login. Made for future Italian doctors."/>
   <link rel="stylesheet" href="style.css"/>
-  <link rel="icon" href="https://favicon.im/graduation-cap.png"/>
+  <link rel="icon" href="https://favicon.im/stethoscope.png"/>
 </head>
 <body>
   <header>
     <div class="container">
-      <h1>Free IMAT Questions 2025-2026</h1>
-      <p>100+ official-style questions • Instant answers • No login required</p>
+      <div class="header-top">
+        <h1>IMAT 2025-2026 <span class="free">FREE</span></h1>
+        <button id="darkModeToggle">🌙 Dark Mode</button>
+      </div>
+      <p>780+ official-style questions • Timed quizzes • 12-week study plan • Instant scores</p>
+      <div class="nav-buttons">
+        <button onclick="showSection('home')">Home</button>
+        <button onclick="showSection('practice')">Practice</button>
+        <button onclick="showSection('quiz')">Timed Quiz</button>
+        <button onclick="showSection('studyplan')">Study Plan</button>
+        <button onclick="showSection('pdfs')">Past Papers</button>
+      </div>
     </div>
   </header>
 
   <div class="container">
-    <div class="filters">
-      <select id="topicFilter">
-        <option value="all">All Topics</option>
-        <option value="Cell Biology">Cell Biology</option>
-        <option value="Genetics">Genetics</option>
-        <option value="Evolution">Evolution</option>
-        <option value="Respiration">Respiration</option>
-        <option value="Photosynthesis">Photosynthesis</option>
-        <option value="Immunology">Immunology</option>
-        <option value="Neuroscience">Neuroscience</option>
-        <option value="Physics & Math">Physics & Math</option>
-        <!-- add more as needed -->
-      </select>
+    <!-- HOME -->
+    <section id="home" class="active">
+      <h2>Welcome Future Doctor! 🇮🇹</h2>
+      <p>Everything you need to ace IMAT 2025-2026 – completely free.</p>
+      <div class="stats">
+        <div>780+ Questions</div>
+        <div>4 Sections</div>
+        <div>12-Week Plan</div>
+        <div>Zero Ads</div>
+      </div>
+      <button class="big-btn" onclick="showSection('practice')">Start Practicing Now →</button>
+    </section>
 
-      <select id="difficultyFilter">
-        <option value="all">All Difficulties</option>
-        <option value="Easy">Easy</option>
-        <option value="Medium">Medium</option>
-        <option value="Hard">Hard</option>
-      </select>
-    </div>
+    <!-- PRACTICE -->
+    <section id="practice">
+      <div class="controls">
+        <input type="text" id="search" placeholder="Search questions..." onkeyup="filterQuestions()">
+        <select id="sectionFilter" onchange="filterQuestions()">
+          <option value="all">All Sections</option>
+          <option value="Biology">Biology</option>
+          <option value="Chemistry">Chemistry</option>
+          <option value="Physics & Math">Physics & Math</option>
+          <option value="Logical Reasoning">Logical Reasoning</option>
+        </select>
+        <select id="difficultyFilter" onchange="filterQuestions()">
+          <option value="all">All Difficulty</option>
+          <option value="Easy">Easy</option>
+          <option value="Medium">Medium</option>
+          <option value="Hard">Hard</option>
+        </select>
+      </div>
+      <div id="questions"></div>
+    </section>
 
-    <div id="questions"></div>
+    <!-- QUIZ -->
+    <section id="quiz">
+      <h2>Timed Quiz Mode</h2>
+      <div class="quiz-setup">
+        <select id="quizLength">
+          <option value="20">20 Questions (30 min)</option>
+          <option value="40">40 Questions (60 min)</option>
+          <option value="60">Full 60 Questions (100 min)</option>
+        </select>
+        <button onclick="startQuiz()">Start Quiz</button>
+      </div>
+      <div id="quizArea" style="display:none">
+        <div class="timer">Time: <span id="timer">00:00</span></div>
+        <div id="quizQuestion"></div>
+        <div id="quizOptions"></div>
+        <button onclick="nextQuizQuestion()" id="nextBtn" style="display:none">Next →</button>
+        <div id="quizResult" style="display:none"></div>
+      </div>
+    </section>
+
+    <!-- STUDY PLAN -->
+    <section id="studyplan">
+      <h2>12-Week IMAT Study Plan</h2>
+      <div id="plan"></div>
+    </section>
+
+    <!-- PDFS -->
+    <section id="pdfs">
+      <h2>Official Past Papers (PDF)</h2>
+      <p>Download & practice the real exams:</p>
+      <ul class="pdf-list">
+        <li><a href="https://www.universitaly.it/sites/default/files/2024/imattest2024_en.pdf" target="_blank">IMAT 2024</a></li>
+        <li><a href="https://www.universitaly.it/sites/default/files/2023/imattest2023_en.pdf" target="_blank">IMAT 2023</a></li>
+        <!-- add more years as needed -->
+      </ul>
+    </section>
   </div>
 
   <footer>
-    <p>Made with ❤️ for future doctors • 100% Free • Italy 2025</p>
+    <p>Made with ❤️ by Thamindu for future Italian doctors • 100% Free Forever</p>
   </footer>
 
-  <script src="questions.js"></script>
+  <script src="data.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
