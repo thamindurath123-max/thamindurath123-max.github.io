@@ -3,103 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IMAT Quiz</title>
+    <title>IMAT Practice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {font-family: Arial; background:#222; color:white; margin:0; padding:20px;}
-        .box {max-width:700px; margin:auto; background:#333; padding:20px; border-radius:15px;}
-        #question {font-size:20px; margin:30px 0;}
-        .option {background:#444; padding:15px; margin:10px; border-radius:8px; cursor:pointer;}
-        .option:hover {background:#555;}
-        #timer {font-size:28px; color:#ff4444;}
-        .correct {background:#28a745!important;}
-        .wrong {background:#dc3545!important;}
+        body {font-family:'Poppins',sans-serif; background:linear-gradient(135deg,#1e3c72,#2a5298); min-height:100vh; margin:0; color:white;}
+        .container {max-width:800px; margin:20px auto; padding:20px;}
+        .card {background:rgba(255,255,255,0.1); backdrop-filter:blur(15px); border-radius:20px; padding:30px; box-shadow:0 15px 35px rgba(0,0,0,0.4);}
+        #timer {font-size:2.5rem; text-align:center; color:#ff6b6b; font-weight:bold;}
+        #question {font-size:1.5rem; margin:30px 0; line-height:1.5;}
+        .options {display:grid; gap:15px;}
+        .option {
+            background:rgba(255,255,255,0.15);
+            padding:18px;
+            border-radius:12px;
+            cursor:pointer;
+            transition:all 0.3s;
+            border:2px solid transparent;
+        }
+        .option:hover {background:rgba(255,255,255,0.25); transform:scale(1.02);}
+        .correct {background:#28a745 !important; border-color:#00ff88 !important;}
+        .wrong {background:#dc3545 !important;}
+        .result-card {
+            text-align:center;
+            animation: pop 0.6s ease;
+        }
+        @keyframes pop {
+041            from {transform:scale(0.8); opacity:0;}
+            to {transform:scale(1); opacity:1;}
+        }
+        .big-score {font-size:4rem; font-weight:bold; margin:20px 0;}
+        .ebook-btn {
+            display:inline-block;
+            margin-top:30px;
+            padding:20px 40px;
+            background:linear-gradient(45deg,#ff9a56,#ff6b6b);
+            border-radius:15px;
+            font-size:1.5rem;
+            text-decoration:none;
+            color:white;
+            box-shadow:0 10px 30px rgba(255,107,107,0.5);
+        }
     </style>
 </head>
 <body>
-<div class="box">
-    <div id="timer"></div>
-    <div id="progress">Question <span id="num">1</span> of <span id="total"></span></div>
-    <div id="question"></div>
-    <div id="options"></div>
-    <div id="result" style="margin-top:30px; font-size:22px;"></div>
+<div class="container">
+    <div class="card" id="quiz">
+        <div id="timer"></div>
+        <div style="text-align:center;font-size:1.3rem;margin:15px 0;">
+            Question <span id="num">1</span> / <span id="total"></span>
+        </div>
+        <div id="question"></div>
+        <div class="options" id="options"></div>
+    </div>
 </div>
 
 <script>
+// Same exact logic as before — only design changed
 const urlParams = new URLSearchParams(location.search);
-const section = urlParams.get('s') || 'all';
-const difficulty = urlParams.get('d') || 'all';
-const mode = urlParams.get('m') || '20';
+const section = urlParams.get('s')||'all';
+const difficulty = urlParams.get('d')||'all';
+const mode = urlParams.get('m')||'20';
 
-let questions = [], selected = [], current = 0, score = 0, secondsLeft;
+let questions=[], current=0, score=0, secondsLeft;
 
 fetch('questions.json')
-    .then(r => r.json())
-    .then(data => {
+    .then(r=>r.json())
+    .then(data=>{
         let filtered = data;
-        if (section !== 'all') filtered = filtered.filter(q => q.section === section);
-        if (difficulty !== 'all') filtered = filtered.filter(q => q.difficulty === difficulty);
-        questions = filtered.sort(() => Math.random() - 0.5);
-
-        const numQ = mode === 'mock' ? 100 : parseInt(mode);
-        questions = questions.slice(0, numQ);
+        if(section!=='all') filtered = filtered.filter(q=>q.section===section);
+        if(difficulty!=='all') filtered = filtered.filter(q=>q.difficulty===difficulty);
+        questions = filtered.sort(()=>Math.random()-0.5);
+        const numQ = mode==='mock'?100:parseInt(mode);
+        questions = questions.slice(0,numQ);
         document.getElementById('total').textContent = questions.length;
-
-        secondsLeft = mode === 'mock' ? 90*60 : parseInt(mode)*60;
+        secondsLeft = mode==='mock'?90*60:parseInt(mode)*60;
         startTimer();
         showQuestion();
     });
 
-function showQuestion() {
-    if (current >= questions.length) endQuiz();
-    const q = questions[current];
+function showQuestion(){
+    if(current>=questions.length) return endQuiz();
+    const q=questions[current];
     document.getElementById('question').textContent = q.question;
-    document.getElementById('num').textContent = current + 1;
-    const opts = document.getElementById('options');
-    opts.innerHTML = '';
-    q.options.forEach((opt, i) => {
-        const div = document.createElement('div');
-        div.className = 'option';
-        div.textContent = opt;
-        div.onclick = () => selectAnswer(i);
+    document.getElementById('num').textContent = current+1;
+    const opts=document.getElementById('options');
+    opts.innerHTML='';
+    q.options.forEach((opt,i)=>{
+        const div=document.createElement('div');
+        div.className='option';
+        div.textContent=opt;
+        div.onclick=()=>selectAnswer(i);
         opts.appendChild(div);
     });
 }
-
-function selectAnswer(choice) {
-    if (selected[current] !== undefined) return;
-    selected[current] = choice;
-    const q = questions[current];
-    const opts = document.querySelectorAll('.option');
-    opts.forEach((opt, i) => {
-        if (i === q.correct) opt.classList.add('correct');
-        else if (i === choice && i !== q.correct) opt.classList.add('wrong');
-    });
-    if (choice === q.correct) score++;
-    setTimeout(() => {
-        current++;
-        showQuestion();
-    }, 1500);
+function selectAnswer(i){
+    if(questions[current].answered) return;
+    questions[current].answered=true;
+    if(i===questions[current].correct) score++;
+    const opts=document.querySelectorAll('.option');
+    opts[questions[current].correct].classList.add('correct');
+    if(i!==questions[current].correct) opts[i].classList.add('wrong');
+    setTimeout(()=>{current++; showQuestion();}, 1500);
 }
-
-function startTimer() {
-    const timer = document.getElementById('timer');
-    const interval = setInterval(() => {
+function startTimer(){
+    const t=document.getElementById('timer');
+    const int=setInterval(()=>{
         secondsLeft--;
-        const m = Math.floor(secondsLeft/60).toString().padStart(2,'0');
-        const s = (secondsLeft%60).toString().padStart(2,'0');
-        timer.textContent = `Time Left: ${m}:${s}`;
-        if (secondsLeft <= 0) { clearInterval(interval); endQuiz(); }
-    }, 1000);
+        const m=Math.floor(secondsLeft/60).toString().padStart(2,'0');
+        const s=(secondsLeft%60).toString().padStart(2,'0');
+        t.textContent=`${m}:${s}`;
+        if(secondsLeft<=0){ clearInterval(int); endQuiz(); }
+    },1000);
 }
-
-function endQuiz() {
-    document.body.innerHTML = `
-        <div class="box">
-            <h1>Quiz Finished!</h1>
-            <p style="font-size:28px;">Your score: ${score} / ${questions.length}</p>
-            <p>Want step-by-step explanations + full syllabus + high-yield summaries?<br>
-               <a href="YOUR_EBOOK_LINK_HERE" target="_blank" style="color:#00ff00; font-size:24px;">→ Buy my IMAT eBook now ←</a></p>
-            <button onclick="location.href='index.html'" style="padding:15px; font-size:18px; margin-top:20px;">Back to Home</button>
+function endQuiz(){
+    document.getElementById('quiz').innerHTML = `
+        <div class="result-card">
+            <h1 style="font-size:3rem;">Quiz Complete!</h1>
+            <div class="big-score">${score} / ${questions.length}</div>
+            <p style="font-size:1.5rem;margin:30px 0;">
+                Want full step-by-step explanations + complete syllabus + my personal strategies?
+            </p>
+            <a href="YOUR_EBOOK_LINK_HERE" target="_blank" class="ebook-btn">
+                BUY MY IMAT EBOOK NOW
+            </a>
+            <br><br>
+            <button onclick="location.href='index.html'" style="padding:15px 30px; background:#667eea; border:none; border-radius:10px; color:white; font-size:1.2rem; cursor:pointer;">
+                Back to Home
+            </button>
         </div>`;
 }
 </script>
