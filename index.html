@@ -2,51 +2,162 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Free IMAT Practice Questions 2025-2026</title>
-  <meta name="description" content="100% free IMAT past paper questions and explanations - Biology, Chemistry, Physics, Math, Logical Reasoning"/>
-  <link rel="stylesheet" href="style.css"/>
-  <link rel="icon" href="https://favicon.im/graduation-cap.png"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medical Quiz Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #0a0a0f;
+      color: white;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(10,10,15,0.9);
+      backdrop-filter: blur(10px);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      z-index: 1000;
+      border-bottom: 1px solid #1a1a22;
+    }
+    nav a {
+      color: #a8a8ff;
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    nav a:hover {
+      color: #7f5cff;
+    }
+    .hero {
+      padding-top: 130px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      text-shadow: 0 0 20px #7f5cff;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: #bfbff5;
+    }
+    .btn {
+      background: #7f5cff;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      display: inline-block;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      box-shadow: 0 0 20px #7f5cff;
+    }
+    .section {
+      padding: 80px 40px;
+      max-width: 900px;
+      margin: auto;
+    }
+    .card {
+      background: #12121a;
+      border: 1px solid #1f1f2d;
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+    }
+    footer {
+      margin-top: 80px;
+      padding: 40px;
+      text-align: center;
+      color: #b8b8d8;
+      border-top: 1px solid #1a1a22;
+      background: #0c0c12;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <h1>Free IMAT Questions 2025-2026</h1>
-      <p>100+ official-style questions • Instant answers • No login required</p>
+  <nav>
+    <div class="logo">MED-QUIZ</div>
+    <div class="nav-links">
+      <a href="#quiz">Quiz</a>
+      <a href="#study">Study Plan</a>
+      <a href="#papers">Past Papers</a>
+      <a href="#about">About</a>
     </div>
-  </header>
+  </nav>
+  <style>
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    nav a {
+      color: #a8a8ff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    nav a:hover {
+      color: #7f5cff;
+    }
+  </style>
 
-  <div class="container">
-    <div class="filters">
-      <select id="topicFilter">
-        <option value="all">All Topics</option>
-        <option value="Cell Biology">Cell Biology</option>
-        <option value="Genetics">Genetics</option>
-        <option value="Evolution">Evolution</option>
-        <option value="Respiration">Respiration</option>
-        <option value="Photosynthesis">Photosynthesis</option>
-        <option value="Immunology">Immunology</option>
-        <option value="Neuroscience">Neuroscience</option>
-        <option value="Physics & Math">Physics & Math</option>
-        <!-- add more as needed -->
-      </select>
+  <div class="hero">
+    <h1>Boost Your Medical Exam Skills</h1>
+    <p>Practice questions, study plans, and exam guidance in one place.</p>
+    <div class="btn">Start Practicing</div>
+  </div>
 
-      <select id="difficultyFilter">
-        <option value="all">All Difficulties</option>
-        <option value="Easy">Easy</option>
-        <option value="Medium">Medium</option>
-        <option value="Hard">Hard</option>
-      </select>
+  <div class="section" id="quiz">
+    <h2>MCQ Quiz</h2>
+    <div class="card">
+      <p><b>Question 1:</b> Which vitamin deficiency causes night blindness?</p>
+      <ul>
+        <li>A. Vitamin A</li>
+        <li>B. Vitamin C</li>
+        <li>C. Vitamin D</li>
+        <li>D. Vitamin K</li>
+      </ul>
     </div>
+    <div class="card">
+      <p><b>Question 2:</b> Normal adult respiratory rate is?</p>
+      <ul>
+        <li>A. 6–10 bpm</li>
+        <li>B. 12–20 bpm</li>
+        <li>C. 25–40 bpm</li>
+        <li>D. 40–60 bpm</li>
+      </ul>
+    </div>
+  </div>
 
-    <div id="questions"></div>
+  <div class="section" id="study">
+    <h2>12-Week Study Plan</h2>
+    <div class="card">Week 1–2: Anatomy basics, major systems.</div>
+    <div class="card">Week 3–4: Physiology fundamentals + practice MCQs.</div>
+    <div class="card">Week 5–6: Pathology core topics.</div>
+    <div class="card">Week 7–8: Pharmacology essentials.</div>
+    <div class="card">Week 9–10: Mock tests + weak areas.</div>
+    <div class="card">Week 11–12: Full revisions & timed papers.</div>
+  </div>
+
+  <div class="section" id="papers">
+    <h2>Past Papers</h2>
+    <div class="card">Past Paper 2021 – 50 MCQs</div>
+    <div class="card">Past Paper 2022 – 50 MCQs</div>
+    <div class="card">Past Paper 2023 – 60 MCQs</div>
+  </div>
+
+  <div class="section" id="about">
+    <h2>About This Site</h2>
+    <div class="card">This platform is built to help students prepare efficiently for medical entrance and theory exams through quizzes and structured plans.</div>
   </div>
 
   <footer>
-    <p>Made with ❤️ for future doctors • 100% Free • Italy 2025</p>
+    © 2025 MED-QUIZ | Built for students.
   </footer>
-
-  <script src="questions.js"></script>
-  <script src="script.js"></script>
 </body>
 </html>
