@@ -83,20 +83,34 @@
 <body>
   <nav>
     <div class="logo">MED-QUIZ</div>
-    <div>
+    <div class="nav-links">
       <a href="#quiz">Quiz</a>
       <a href="#study">Study Plan</a>
       <a href="#papers">Past Papers</a>
       <a href="#about">About</a>
     </div>
   </nav>
+  <style>
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    nav a {
+      color: #a8a8ff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    nav a:hover {
+      color: #7f5cff;
+    }
+  </style>
 
   <div class="hero">
     <h1>Boost Your Medical Exam Skills</h1>
     <p>Practice questions, study plans, and exam guidance in one place.</p>
     <div class="btn">Start Practicing</div>
   </div>
-
   <div class="section" id="quiz">
     <h2>MCQ Quiz</h2>
     <div class="card">
@@ -118,7 +132,6 @@
       </ul>
     </div>
   </div>
-
   <div class="section" id="study">
     <h2>12-Week Study Plan</h2>
     <div class="card">Week 1–2: Anatomy basics, major systems.</div>
@@ -128,19 +141,16 @@
     <div class="card">Week 9–10: Mock tests + weak areas.</div>
     <div class="card">Week 11–12: Full revisions & timed papers.</div>
   </div>
-
   <div class="section" id="papers">
     <h2>Past Papers</h2>
     <div class="card">Past Paper 2021 – 50 MCQs</div>
     <div class="card">Past Paper 2022 – 50 MCQs</div>
     <div class="card">Past Paper 2023 – 60 MCQs</div>
   </div>
-
   <div class="section" id="about">
     <h2>About This Site</h2>
     <div class="card">This platform is built to help students prepare efficiently for medical entrance and theory exams through quizzes and structured plans.</div>
   </div>
-
   <footer>
     © 2025 MED-QUIZ | Built for students.
   </footer>
